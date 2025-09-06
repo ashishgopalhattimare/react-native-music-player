@@ -6,7 +6,7 @@ import { ComponentProps } from 'react';
 import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
 
 type IconMapping = Record<SymbolViewProps['name'], ComponentProps<typeof FontAwesome>['name']>;
-type IconSymbolName = keyof typeof MAPPING;
+export type IconSymbolName = keyof typeof MAPPING;
 
 /**
  * Add your SF Symbols to Material Icons mappings here.
@@ -20,7 +20,8 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'heart': 'heart-o',
   'play.circle': 'play-circle',
-  'music.mic': 'music'
+  'music.mic': 'music',
+  'person.crop.circle': 'users'
 } as IconMapping;
 
 /**

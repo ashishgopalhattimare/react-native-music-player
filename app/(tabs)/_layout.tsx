@@ -2,10 +2,38 @@ import { Tabs } from 'expo-router';
 import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import { IconSymbol, type IconSymbolName } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+
+type TabData = {
+  name: string;
+  title: string;
+  iconName: IconSymbolName;
+}
+const tabList: ReadonlyArray<TabData> = [
+  {
+    name: "(songs)",
+    title: "Songs",
+    iconName: "music.mic"
+  },
+  {
+    name: "artists",
+    title: "Artists",
+    iconName: "person.crop.circle"
+  },
+  {
+    name: "favourites",
+    title: "Favourites",
+    iconName: "heart"
+  },
+  {
+    name: "playlists",
+    title: "Playlists",
+    iconName: "play.circle"
+  }
+];
 
 const Layout = () => {
   const colorScheme = useColorScheme();
@@ -33,37 +61,16 @@ const Layout = () => {
         }),
       }}
     >
-      <Tabs.Screen
-        name="(songs)"
-        options={{
-          title: 'Songs',
-          headerShown: false,
-          tabBarIcon: ({ color }) => <IconSymbol size={16} name="music.mic" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="artists"
-        options={{
-          title: 'Artists',
-          headerShown: false,
-        }}
-      />
-      <Tabs.Screen
-        name="favourites"
-        options={{
-          title: 'Favourites',
-          headerShown: false,
-          tabBarIcon: ({ color }) => <IconSymbol size={16} name="heart" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="playlists"
-        options={{
-          title: 'Playlists',
-          headerShown: false,
-          tabBarIcon: ({ color }) => <IconSymbol size={16} name="play.circle" color={color} />,
-        }}
-      />
+      {tabList.map((tab) => (
+        <Tabs.Screen
+          name={tab.name}
+          options={{
+            title: tab.title,
+            headerShown: false,
+            tabBarIcon: ({ color }) => <IconSymbol size={16} name={tab.iconName} color={color} />,
+          }}
+        />
+      ))}
     </Tabs>
   );
 };
