@@ -1,12 +1,19 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { StatusBar } from 'expo-status-bar';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
-import { Text } from 'react-native';
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
-const App = () => <Text>App.tsx</Text>;
+const App = () => {
+  return (
+    <Stack>
+      <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+    </Stack>
+  );
+};
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -21,8 +28,16 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <App />
-      <StatusBar style="auto" />
+      <SafeAreaView style={styles.container}>
+        <App />
+        <StatusBar style="auto" />
+      </SafeAreaView>
     </ThemeProvider>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
