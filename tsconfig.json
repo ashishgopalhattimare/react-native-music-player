@@ -14,7 +14,8 @@
       "@/screens/*": ["./screens/*"],
       "@/store/*": ["./store/*"],
       "@/styles/*": ["./styles/*"],
-      "@/utils/*": ["./utils/*"]
+      "@/utils/*": ["./utils/*"],
+      "@/constants/*": ["./constants/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
