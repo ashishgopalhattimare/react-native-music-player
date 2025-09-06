@@ -1,12 +1,5 @@
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { StackScreenHeader } from '@/components/layouts';
 
-import { styles } from '@/styles/common';
-
-const Layout = () => (
-  <ThemedView style={styles.container}>
-    <ThemedText>Playlists</ThemedText>
-  </ThemedView>
-);
-
-export default Layout;
+export default function Layout() {
+  return <StackScreenHeader title="Playlists" />;
+}

@@ -11,28 +11,28 @@ type TabData = {
   name: string;
   title: string;
   iconName: IconSymbolName;
-}
+};
 const tabList: ReadonlyArray<TabData> = [
   {
-    name: "(songs)",
-    title: "Songs",
-    iconName: "music.mic"
+    name: '(songs)',
+    title: 'Songs',
+    iconName: 'music.mic',
   },
   {
-    name: "artists",
-    title: "Artists",
-    iconName: "person.crop.circle"
+    name: 'artists',
+    title: 'Artists',
+    iconName: 'person.crop.circle',
   },
   {
-    name: "favourites",
-    title: "Favourites",
-    iconName: "heart"
+    name: 'favourites',
+    title: 'Favourites',
+    iconName: 'heart',
   },
   {
-    name: "playlists",
-    title: "Playlists",
-    iconName: "play.circle"
-  }
+    name: 'playlists',
+    title: 'Playlists',
+    iconName: 'play.circle',
+  },
 ];
 
 const Layout = () => {
@@ -56,7 +56,7 @@ const Layout = () => {
           default: {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
-            marginBottom: 8
+            marginBottom: 8,
           },
         }),
       }}

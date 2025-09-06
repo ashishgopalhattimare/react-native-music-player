@@ -10,7 +10,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 const App = () => {
   return (
     <Stack>
-      <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
   );
 };
@@ -34,10 +34,10 @@ export default function RootLayout() {
       </SafeAreaView>
     </ThemeProvider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

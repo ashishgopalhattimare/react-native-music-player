@@ -13,7 +13,7 @@ export default function BlurTabBarBackground() {
         ...StyleSheet.absoluteFillObject,
         overflow: 'hidden',
         borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+        borderTopRightRadius: 20,
       }}
     />
   );
@@ -22,4 +22,4 @@ export default function BlurTabBarBackground() {
 export function useBottomTabOverflow() {
   return useBottomTabBarHeight();
 }
-x
+x;
