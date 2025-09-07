@@ -18,10 +18,10 @@ export const StackScreenHeader: FC<PropsWithChildren<Props>> = ({ title, stackWr
       backgroundColor: colors.background,
     },
     headerTitleStyle: {
-      color: colors.text,
+      color: colors.text_primary,
       fontSize: FontSize.LARGE,
     },
-    headerTintColor: colors.text,
+    headerTintColor: colors.text_primary,
     headerTransparent: false,
     headerBlurEffect: 'prominent',
     headerShadowVisible: false,

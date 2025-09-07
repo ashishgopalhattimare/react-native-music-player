@@ -1,7 +1,7 @@
 export const FontSize = {
   XSMALL: 12,
-  SMALL: 16,
-  BASE: 20,
+  SMALL: 14,
+  BASE: 16,
   LARGE: 24,
 };
 

@@ -6,6 +6,7 @@ export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  theme?: 'primary' | 'secondary' | 'positive';
 };
 
 export function ThemedText({
@@ -13,9 +14,10 @@ export function ThemedText({
   lightColor,
   darkColor,
   type = 'default',
+  theme = 'primary',
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, `text_${theme}` as never);
 
   return (
     <Text

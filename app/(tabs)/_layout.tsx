@@ -4,8 +4,7 @@ import { Platform } from 'react-native';
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol, type IconSymbolName } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useTheme } from '@/hooks/useThemeColor';
 
 type TabData = {
   name: string;
@@ -36,14 +35,15 @@ const tabList: ReadonlyArray<TabData> = [
 ];
 
 const Layout = () => {
-  const colorScheme = useColorScheme();
+  const color = useTheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: color.tint,
         tabBarLabelStyle: {
           fontWeight: 500,
+          marginBottom: -5, // Move label up by increasing bottom margin negativity
         },
         headerShown: false,
         tabBarButton: HapticTab,
@@ -56,13 +56,13 @@ const Layout = () => {
           default: {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
-            marginBottom: 8,
           },
         }),
       }}
     >
       {tabList.map((tab) => (
         <Tabs.Screen
+          key={tab.title}
           name={tab.name}
           options={{
             title: tab.title,

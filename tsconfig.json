@@ -15,7 +15,10 @@
       "@/store/*": ["./store/*"],
       "@/styles/*": ["./styles/*"],
       "@/utils/*": ["./utils/*"],
-      "@/constants/*": ["./constants/*"]
+      "@/constants/*": ["./constants/*"],
+      "@/api/*": ["./api/*"],
+      "@/types": ["./api/types"],
+      "@/features/*": ["./features/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],

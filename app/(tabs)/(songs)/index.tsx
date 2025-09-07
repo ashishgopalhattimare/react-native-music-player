@@ -1,10 +1,11 @@
 import { AppScreen } from '@/components/layouts';
-import { Text } from '@/components/react-native';
+
+import { SongsList } from '@/features/songs';
 
 export default function Screen() {
   return (
     <AppScreen>
-      <Text>container</Text>
+      <SongsList />
     </AppScreen>
   );
 }

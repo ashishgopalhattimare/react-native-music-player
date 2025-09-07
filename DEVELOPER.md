@@ -48,3 +48,40 @@ export default function Home() {
   );
 }
 ```
+
+### How does useHeaderSearchBar allows to integrate search functionality outside the header and move its implementation to feature level?
+
+- The hook uses useNavigation from Expo Router to access the navigation object externally. The `options` utilized by the top-level component is provided by the hook itself, which are altered at run-time via `setOptions` at the `useHeaderSearchBar` implementation level providing loosely-coupled UI and allowing customizable options for extensibility.
+
+- It sets the search bar options on the navigation header inside a useLayoutEffect. This keeps header configuration logic separated from the component UI logic.
+
+- The onChangeText event handler for the search bar is wrapped in a useCallback to keep it stable and updates internal state (setSearch).
+
+### Create a onChangeDebounce hook which execute the provided callback whenever the search criteria is uses has changed
+
+```
+type Props<T> = {
+  callback: () => void;
+  input: T;
+  trackChange: (prevValue: T | null, currValue: T) => boolean;
+  delay?: number;
+};
+const useChangeDebounce = <T>({ callback, trackChange, input, delay = 500 }: Props<T>) => {
+  const prevRef = useRef<T>(null);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (trackChange(prevRef.current, input)) {
+        callback();
+      }
+      prevRef.current = input;
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [input, delay]);
+};
+
+useChangeDebounce({
+  callback: () => refetch?.(),
+  input: search,
+  trackChange: (prev, curr) => prev !== curr,
+});
+```

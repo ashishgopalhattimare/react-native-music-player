@@ -22,6 +22,7 @@ const MAPPING = {
   'play.circle': 'play-circle',
   'music.mic': 'music',
   'person.crop.circle': 'users',
+  ellipsis: 'ellipsis-h',
 } as IconMapping;
 
 /**
