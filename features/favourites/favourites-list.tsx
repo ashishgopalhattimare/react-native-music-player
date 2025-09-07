@@ -1,4 +1,4 @@
-import { fetchSongs } from '@/api/graphql';
+import { fetchFavouriteSongs } from '@/api/graphql';
 
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from '@/components/react-native';
 import { useChangeDebounce } from '@/hooks/useChangeDebounce';
@@ -7,19 +7,19 @@ import { useQuery } from '@/hooks/useQuery';
 
 import { GetSongListResponse, SongFragment } from '@/types';
 
+import { SongListView } from '@/features/songs/ui/song-list-view';
 import { useMediaPlayer } from '@/library/music-player';
-import { SongListView } from './ui/song-list-view';
 
-const fetch = (args?: Record<string, unknown>) => fetchSongs(args);
+const fetch = (args?: Record<string, unknown>) => fetchFavouriteSongs(args);
 
 const Separator = () => <View style={styles.separator} />;
 
 const defaultSearchOptions = {
   placeholder: 'Find in songs',
 };
-export const SongsList = () => {
+export const FavouriteSongsList = () => {
   const search = useHeaderSearch(defaultSearchOptions);
-  
+
   const { data, error, loading, refetch } = useQuery<GetSongListResponse>(fetch, {
     input: {
       search: search,

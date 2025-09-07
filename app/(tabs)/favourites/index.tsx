@@ -1,10 +1,11 @@
 import { AppScreen } from '@/components/layouts';
-import { Text } from '@/components/react-native';
+
+import { FavouriteSongsList } from '@/features/favourites';
 
 export default function Screen() {
   return (
     <AppScreen>
-      <Text>container</Text>
+      <FavouriteSongsList />
     </AppScreen>
   );
 }
