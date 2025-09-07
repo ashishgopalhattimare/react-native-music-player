@@ -1,9 +1,12 @@
 import { DarkTheme, ThemeProvider } from '@react-navigation/native';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+
+import { MediaPlayerProvider } from '@/library/music-player';
 
 const App = () => (
   <Stack>
@@ -21,10 +24,14 @@ export default function RootLayout() {
   }
   return (
     <ThemeProvider value={DarkTheme}>
-      <SafeAreaView style={styles.container}>
-        <App />
-        <StatusBar style="auto" />
-      </SafeAreaView>
+      <MediaPlayerProvider>
+        <SafeAreaProvider>
+          <SafeAreaView style={styles.container}>
+            <App />
+            <StatusBar style="auto" />
+          </SafeAreaView>
+        </SafeAreaProvider>
+      </MediaPlayerProvider>
     </ThemeProvider>
   );
 }

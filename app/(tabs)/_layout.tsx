@@ -1,10 +1,13 @@
 import { Tabs } from 'expo-router';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
+import { Floater } from '@/components/Floater';
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol, type IconSymbolName } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
+import { SongWidget } from '@/features/songs/ui/song-widget';
 import { useTheme } from '@/hooks/useThemeColor';
+import { useMediaPlayer } from '@/library/music-player';
 
 type TabData = {
   name: string;
@@ -34,7 +37,7 @@ const tabList: ReadonlyArray<TabData> = [
   },
 ];
 
-const Layout = () => {
+const App = () => {
   const color = useTheme();
 
   return (
@@ -74,5 +77,33 @@ const Layout = () => {
     </Tabs>
   );
 };
+
+const Layout = () => {
+  const mediaPlayer = useMediaPlayer();
+  return (
+    <>
+      <App />
+      {mediaPlayer.track && (
+        <Floater position="bottom" style={styles.widgetFloat}>
+          <SongWidget
+            data={mediaPlayer.track as never}
+            onPause={mediaPlayer.pause}
+            onPlay={mediaPlayer.resume}
+            isPaused={mediaPlayer.isPaused}
+          />
+        </Floater>
+      )}
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  widgetFloat: {
+    width: '100%',
+    paddingHorizontal: 16,
+    bottom: 55,
+    backgroundColor: 'transparent',
+  },
+});
 
 export default Layout;

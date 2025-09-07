@@ -18,7 +18,8 @@
       "@/constants/*": ["./constants/*"],
       "@/api/*": ["./api/*"],
       "@/types": ["./api/types"],
-      "@/features/*": ["./features/*"]
+      "@/features/*": ["./features/*"],
+      "@/library/*": ["./library/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],

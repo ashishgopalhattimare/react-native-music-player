@@ -1,6 +1,6 @@
 // Fallback for using MaterialIcons on Android and web.
 
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome from '@expo/vector-icons/FontAwesome5';
 import { SymbolViewProps, SymbolWeight } from 'expo-symbols';
 import { ComponentProps } from 'react';
 import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
@@ -18,11 +18,14 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
-  heart: 'heart-o',
+  heart: 'heart',
   'play.circle': 'play-circle',
   'music.mic': 'music',
   'person.crop.circle': 'users',
   ellipsis: 'ellipsis-h',
+  play: 'play',
+  forward: 'forward',
+  pause: 'pause',
 } as IconMapping;
 
 /**

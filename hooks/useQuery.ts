@@ -24,7 +24,8 @@ export const useQuery = <T>(
   api: (input?: Record<string, unknown>) => Promise<T>,
   options?: OptionProps,
 ): ResponseType<T> => {
-  const [data, setData] = useState<QueryData<T>>({ data: null, loading: true, error: null });
+  // TODO: Check why loading=false is needed
+  const [data, setData] = useState<QueryData<T>>({ data: null, loading: false, error: null });
 
   const refetch = async () => {
     api(options?.input)

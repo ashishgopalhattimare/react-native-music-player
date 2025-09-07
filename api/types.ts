@@ -10,6 +10,8 @@ export type SongFragment = Readonly<{
   rating: Maybe<SongRating>;
 }>;
 
+export type Track = SongFragment;
+
 export type GetSongListResponse = Readonly<{
   data: ReadonlyArray<SongFragment>;
 }>;

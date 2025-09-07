@@ -1,10 +1,14 @@
 import { fetchSongs } from '@/api/graphql';
-import { FlatList, StyleSheet, Text, TouchableHighlight, View } from '@/components/react-native';
+
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from '@/components/react-native';
 import { useChangeDebounce } from '@/hooks/useChangeDebounce';
 import { useHeaderSearch } from '@/hooks/useHeaderSearchBar';
 import { useQuery } from '@/hooks/useQuery';
-import { GetSongListResponse } from '@/types';
+import { useState } from 'react';
 
+import { GetSongListResponse, SongFragment } from '@/types';
+
+import { useMediaPlayer } from '@/library/music-player';
 import { SongListView } from './ui/song-list-view';
 
 const fetch = (args?: Record<string, unknown>) => fetchSongs(args);
@@ -16,11 +20,14 @@ const defaultSearchOptions = {
 };
 export const SongsList = () => {
   const search = useHeaderSearch(defaultSearchOptions);
+  const [track, setTrack] = useState<SongFragment | null>(null);
+
   const { data, error, loading, refetch } = useQuery<GetSongListResponse>(fetch, {
     input: {
       search: search,
     },
   });
+  const mediaPlayer = useMediaPlayer();
 
   useChangeDebounce({
     callback: () => refetch?.(),
@@ -28,8 +35,16 @@ export const SongsList = () => {
     trackChange: (prev, curr) => prev !== curr,
   });
 
+  const onPlayHandler = (data: SongFragment) => {
+    setTrack(data);
+    mediaPlayer.play(data);
+  };
+
   if (loading) {
     return <Text>Loading...</Text>;
+  }
+  if (error) {
+    return <Text>Error...</Text>;
   }
   if (!data) return null;
 
@@ -38,16 +53,13 @@ export const SongsList = () => {
     <FlatList
       data={songList}
       keyExtractor={(item) => item.title}
-      contentContainerStyle={{
-        paddingTop: 10,
-        paddingBottom: 10,
-      }}
+      contentContainerStyle={track ? styles.listContainerWithSongWidget : styles.listContainer}
       ItemSeparatorComponent={Separator}
       ListFooterComponent={Separator}
       renderItem={({ item: metadata }) => (
-        <TouchableHighlight>
-          <SongListView data={metadata} />
-        </TouchableHighlight>
+        <TouchableOpacity onPress={() => onPlayHandler(metadata)}>
+          <SongListView data={metadata} isSelected={metadata.url === track?.url} isPaused={mediaPlayer.isPaused} />
+        </TouchableOpacity>
       )}
     />
   );
@@ -60,5 +72,13 @@ const styles = StyleSheet.create({
     marginLeft: 50 + 8,
     backgroundColor: '#2d2d2d',
     opacity: 0.5,
+  },
+  listContainer: {
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  listContainerWithSongWidget: {
+    paddingTop: 10,
+    paddingBottom: 50 + 12,
   },
 });

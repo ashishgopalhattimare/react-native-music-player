@@ -6,7 +6,7 @@ export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
-  theme?: 'primary' | 'secondary' | 'positive';
+  theme?: 'primary' | 'secondary' | 'positive' | 'highlight';
 };
 
 export function ThemedText({
@@ -15,12 +15,14 @@ export function ThemedText({
   darkColor,
   type = 'default',
   theme = 'primary',
+  numberOfLines,
   ...rest
 }: ThemedTextProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, `text_${theme}` as never);
 
   return (
     <Text
+      numberOfLines={numberOfLines}
       style={[
         { color },
         type === 'default' ? styles.default : undefined,

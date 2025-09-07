@@ -4,12 +4,13 @@
  */
 
 const tintColorLight = '#0a7ea4';
-const tintColorDark = '#98117bff';
+const tintColorDark = '#9b0933ff';
 
 export const Colors = {
   light: {
     text_primary: '#11181C',
     text_secondary: '#9b9b9bff',
+    text_highlight: tintColorLight,
     background: '#fff',
     tint: tintColorLight,
     icon: '#687076',
@@ -19,6 +20,7 @@ export const Colors = {
   dark: {
     text_primary: '#ECEDEE',
     text_secondary: '#9b9b9bff',
+    text_highlight: tintColorDark,
     background: 'black',
     tint: tintColorDark,
     icon: '#9BA1A6',
