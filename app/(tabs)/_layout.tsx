@@ -21,14 +21,14 @@ const tabList: ReadonlyArray<TabData> = [
     iconName: 'music.mic',
   },
   {
-    name: 'artists',
-    title: 'Artists',
-    iconName: 'person.crop.circle',
-  },
-  {
     name: 'favourites',
     title: 'Favourites',
     iconName: 'heart',
+  },
+  {
+    name: 'artists',
+    title: 'Artists',
+    iconName: 'person.crop.circle',
   },
   {
     name: 'playlists',
