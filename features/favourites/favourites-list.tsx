@@ -54,7 +54,11 @@ export const FavouriteSongsList = () => {
       ListFooterComponent={Separator}
       renderItem={({ item: metadata }) => (
         <TouchableOpacity onPress={() => onPlayHandler(metadata)}>
-          <SongListView data={metadata} isSelected={metadata.url === track?.url} isPaused={mediaPlayer.isPaused} />
+          <SongListView
+            data={metadata}
+            isSelected={metadata.url === track?.url}
+            isPaused={mediaPlayer.isPaused}
+          />
         </TouchableOpacity>
       )}
     />

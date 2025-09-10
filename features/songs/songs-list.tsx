@@ -19,7 +19,7 @@ const defaultSearchOptions = {
 };
 export const SongsList = () => {
   const search = useHeaderSearch(defaultSearchOptions);
-  
+
   const { data, error, loading, refetch } = useQuery<GetSongListResponse>(fetch, {
     input: {
       search: search,
@@ -54,7 +54,11 @@ export const SongsList = () => {
       ListFooterComponent={Separator}
       renderItem={({ item: metadata }) => (
         <TouchableOpacity onPress={() => onPlayHandler(metadata)}>
-          <SongListView data={metadata} isSelected={metadata.url === track?.url} isPaused={mediaPlayer.isPaused} />
+          <SongListView
+            data={metadata}
+            isSelected={metadata.url === track?.url}
+            isPaused={mediaPlayer.isPaused}
+          />
         </TouchableOpacity>
       )}
     />
