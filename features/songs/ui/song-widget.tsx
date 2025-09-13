@@ -1,8 +1,16 @@
 import { SongFragment } from '@/api/types';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from '@/components/react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from '@/components/react-native';
 import { FontSize } from '@/constants/tokens';
 
 import { IconSymbol } from '@/components/ui/IconSymbol';
+import { useRouter } from 'expo-router';
 import { unknownImage } from './common';
 
 type Props = {
@@ -13,27 +21,33 @@ type Props = {
 };
 export const SongWidget = ({ data, isPaused, onPlay, onPause }: Props) => {
   const { title, artwork } = data;
+
+  const router = useRouter();
+  const onViewPlayerHandler = () => router.navigate('/player');
+
   return (
-    <View style={[styles.container]}>
-      <Image style={styles.image} source={artwork ? { uri: artwork } : unknownImage} />
-      <Text style={styles.title} theme="secondary" numberOfLines={1}>
-        {title}
-      </Text>
-      <View style={styles.controls}>
-        {isPaused ? (
-          <TouchableOpacity onPress={onPlay}>
-            <IconSymbol color={'white'} size={20} name="pause" />
+    <TouchableHighlight onPress={onViewPlayerHandler}>
+      <View style={[styles.container]}>
+        <Image style={styles.image} source={artwork ? { uri: artwork } : unknownImage} />
+        <Text style={styles.title} theme="secondary" numberOfLines={1}>
+          {title}
+        </Text>
+        <View style={styles.controls}>
+          {isPaused ? (
+            <TouchableOpacity onPress={onPlay}>
+              <IconSymbol color={'white'} size={20} name="pause" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={onPause}>
+              <IconSymbol color={'white'} size={20} name="play" />
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity>
+            <IconSymbol color={'white'} size={25} name="forward" />
           </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={onPause}>
-            <IconSymbol color={'white'} size={20} name="play" />
-          </TouchableOpacity>
-        )}
-        <TouchableOpacity>
-          <IconSymbol color={'white'} size={25} name="forward" />
-        </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableHighlight>
   );
 };
 

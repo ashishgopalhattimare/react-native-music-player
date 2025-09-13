@@ -14,6 +14,7 @@ export {
   Platform,
   ScrollView,
   StyleSheet,
+  TouchableHighlight,
   TouchableOpacity,
   VirtualizedList,
 } from 'react-native';

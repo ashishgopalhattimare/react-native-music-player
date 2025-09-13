@@ -9,8 +9,18 @@ import { StatusBar } from 'expo-status-bar';
 import { MediaPlayerProvider } from '@/library/music-player';
 
 const App = () => (
-  <Stack>
+  <Stack initialRouteName="(tabs)">
     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    <Stack.Screen
+      name="player"
+      options={{
+        presentation: 'card',
+        gestureEnabled: true,
+        gestureDirection: 'vertical',
+        animationDuration: 400,
+        headerShown: false,
+      }}
+    />
   </Stack>
 );
 

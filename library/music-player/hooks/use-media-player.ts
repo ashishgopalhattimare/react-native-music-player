@@ -9,6 +9,9 @@ export const MediaPlayerContext = createContext<MediaPlayerContextProps>({
   resume: () => undefined,
   track: null,
   isPaused: false,
+  getAudioStats: () => null,
+  setVolume: () => undefined,
+  volume: 1,
 });
 
 export const useMediaPlayer = () => useContext(MediaPlayerContext);
