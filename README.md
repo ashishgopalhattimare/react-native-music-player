@@ -30,8 +30,8 @@ Develop a clone of music player with emplasis on React Native learning
 
 - When user clicks on the `song widget`, should open the Player screen providing better control over the song
 - Should be able to Resume/Pause the current song
-- Should be able to play the next song
-- Should be able to play the previous song
+- Should be able to play the next song (from the selected list i.e. songs/favourite)
+- Should be able to play the previous song (from the selected list i.e. songs/favourite)
 
 <div style="display:flex">
   <img src="https://github.com/ashishgopalhattimare/music-player/blob/main/assets/demo/player_screen_play.png" alt="play_player" width="200" />
