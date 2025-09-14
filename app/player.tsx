@@ -47,9 +47,7 @@ export default function Player() {
     };
   }, [isPaused, getAudioStats]);
 
-  const onProgressChangeHandler = (positionMillis: number) => {
-    updateSongPosition('slide', positionMillis);
-  };
+  const onProgressChangeHandler = (positionMillis: number) => updateSongPosition('slide', positionMillis);
 
   const { artwork, title, artist, rating } = track;
   return (
