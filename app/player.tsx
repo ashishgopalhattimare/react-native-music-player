@@ -2,7 +2,7 @@ import { Button, Image, StyleSheet, Text, View } from '@/components/react-native
 import { FontSize } from '@/constants/tokens';
 import { unknownImage } from '@/features/songs/ui/common';
 import { useTheme } from '@/hooks/useThemeColor';
-import { useMediaPlayer } from '@/library/music-player';
+import { useMediaPlayer } from '@/library/music-player/hooks';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 

@@ -10,7 +10,7 @@ import { update } from '@/redux/slice/media-player';
 
 import { GetSongListResponse, SongFragment } from '@/types';
 
-import { useMediaPlayer } from '@/library/music-player';
+import { useMediaPlayer } from '@/library/music-player/hooks';
 import { SongListView } from './ui/song-list-view';
 
 const fetch = (args?: Record<string, unknown>) => fetchSongs(args);

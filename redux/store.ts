@@ -7,3 +7,5 @@ export const store = configureStore({
     mediaPlayer: mediaPlayerSice,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;

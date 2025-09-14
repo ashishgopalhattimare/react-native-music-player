@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity, View } from '@/components/react-native';
 import { IconSymbol } from '@/components/ui/IconSymbol';
-import { useMediaPlayer } from '@/library/music-player';
+import { useMediaPlayer } from '@/library/music-player/hooks';
 import { FC } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 

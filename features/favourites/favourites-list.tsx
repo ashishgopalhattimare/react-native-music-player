@@ -8,7 +8,7 @@ import { useQuery } from '@/hooks/useQuery';
 import { GetSongListResponse, SongFragment } from '@/types';
 
 import { SongListView } from '@/features/songs/ui/song-list-view';
-import { useMediaPlayer } from '@/library/music-player';
+import { useMediaPlayer } from '@/library/music-player/hooks';
 import { useDispatch } from '@/redux/lib';
 import { update } from '@/redux/slice/media-player';
 

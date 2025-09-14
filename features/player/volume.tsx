@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from '@/components/react-native';
 import { IconSymbol, type IconSymbolName } from '@/components/ui/IconSymbol';
 import { useTheme } from '@/hooks/useThemeColor';
-import { useMediaPlayer } from '@/library/music-player';
+import { useMediaPlayer } from '@/library/music-player/hooks';
 
 const VolBtn = ({ onPress, name }: { onPress: () => void; name: IconSymbolName }) => (
   <TouchableOpacity onPress={onPress}>
