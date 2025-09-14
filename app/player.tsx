@@ -6,6 +6,7 @@ import { useMediaPlayer } from '@/library/music-player';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 
+import { IconSymbol } from '@/components/ui/IconSymbol';
 import { PlayerController, ProgressBar } from '@/features/player';
 
 const BottomSheetBar = () => (
@@ -15,8 +16,9 @@ const BottomSheetBar = () => (
 );
 
 export default function Player() {
-  const { track, isPaused, getAudioStats } = useMediaPlayer();
+  const { track, isPaused, getAudioStats, pause, resume, updateSongPosition } = useMediaPlayer();
   const router = useRouter();
+  const theme = useTheme();
 
   const [metadata, setMetadata] = useState<{ position: number; duration?: number }>();
 
@@ -45,14 +47,21 @@ export default function Player() {
     };
   }, [isPaused, getAudioStats]);
 
-  const { artwork, title, artist } = track;
+  const onProgressChangeHandler = (positionMillis: number) => {
+    updateSongPosition('slide', positionMillis);
+  };
+
+  const { artwork, title, artist, rating } = track;
   return (
     <View style={styles.container}>
       <BottomSheetBar />
       <View style={{ flex: 1 }}>
         <Image style={styles.image} source={artwork ? { uri: artwork } : unknownImage} />
         <View style={styles.details}>
-          <Text style={styles.title}>{title}</Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{title}</Text>
+            <IconSymbol color={rating ? theme.tint : theme.tabIconDefault} name="heart" size={16} />
+          </View>
           {artist && <Text style={styles.artist}>{artist}</Text>}
 
           {metadata?.duration && (
@@ -60,6 +69,9 @@ export default function Player() {
               elapsedTime={metadata.position}
               totalTime={metadata.duration}
               style={styles.progressBar}
+              onChange={onProgressChangeHandler}
+              onStart={pause}
+              onStop={resume}
             />
           )}
 
@@ -82,8 +94,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bar: {
-    width: 16 * 5,
-    height: 16,
+    width: 10 * 5,
+    height: 10,
     borderRadius: 50,
   },
   image: {
@@ -92,6 +104,13 @@ const styles = StyleSheet.create({
   },
   details: {
     marginTop: 20,
+  },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    gap: 16,
   },
   title: {
     fontWeight: 700,

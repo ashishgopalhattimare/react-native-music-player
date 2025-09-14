@@ -9,6 +9,8 @@ import { GetSongListResponse, SongFragment } from '@/types';
 
 import { SongListView } from '@/features/songs/ui/song-list-view';
 import { useMediaPlayer } from '@/library/music-player';
+import { useDispatch } from '@/redux/lib';
+import { update } from '@/redux/slice/media-player';
 
 const fetch = (args?: Record<string, unknown>) => fetchFavouriteSongs(args);
 
@@ -26,6 +28,7 @@ export const FavouriteSongsList = () => {
     },
   });
   const mediaPlayer = useMediaPlayer();
+  const dispatch = useDispatch();
 
   useChangeDebounce({
     callback: () => refetch?.(),
@@ -33,7 +36,15 @@ export const FavouriteSongsList = () => {
     trackChange: (prev, curr) => prev !== curr,
   });
 
-  const onPlayHandler = (data: SongFragment) => mediaPlayer.play(data);
+  const onPlayHandler = (song: SongFragment) => {
+    mediaPlayer.play(song);
+
+    dispatch(
+      update({
+        trackList: data?.data ?? [],
+      }),
+    );
+  };
 
   if (loading) {
     return <Text>Loading...</Text>;

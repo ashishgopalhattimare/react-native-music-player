@@ -18,8 +18,9 @@ type Props = {
   isPaused?: boolean;
   onPlay: () => void;
   onPause: () => void;
+  onForward: () => void;
 };
-export const SongWidget = ({ data, isPaused, onPlay, onPause }: Props) => {
+export const SongWidget = ({ data, isPaused, onPlay, onPause, onForward }: Props) => {
   const { title, artwork } = data;
 
   const router = useRouter();
@@ -42,7 +43,7 @@ export const SongWidget = ({ data, isPaused, onPlay, onPause }: Props) => {
               <IconSymbol color={'white'} size={20} name="play" />
             </TouchableOpacity>
           )}
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onForward}>
             <IconSymbol color={'white'} size={25} name="forward" />
           </TouchableOpacity>
         </View>

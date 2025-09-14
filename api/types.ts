@@ -4,7 +4,7 @@ type SongRating = 1 | 2 | 3 | 4 | 5;
 export type SongFragment = Readonly<{
   url: string;
   title: string;
-  playlist: ReadonlyArray<string>;
+  playlist: string;
   artist: Maybe<string>;
   artwork: Maybe<string>;
   rating: Maybe<SongRating>;
@@ -12,6 +12,7 @@ export type SongFragment = Readonly<{
 
 export type Track = SongFragment;
 
+export type SongFragmentList = ReadonlyArray<SongFragment>;
 export type GetSongListResponse = Readonly<{
-  data: ReadonlyArray<SongFragment>;
+  data: SongFragmentList;
 }>;

@@ -11,18 +11,23 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 export const Controller: FC<Props> = ({ style }) => {
-  const { pause, resume, isPaused, isLooping, toggleLooping } = useMediaPlayer();
+  const { pause, resume, isPaused, isLooping, toggleLooping, updateSongPosition } =
+    useMediaPlayer();
   const theme = useTheme();
+
+  const onForwardHandler = () => updateSongPosition('forward');
+  const onBackHandler = () => updateSongPosition('back');
+
   return (
     <View style={[styles.container, style]}>
       <View style={styles.controller}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onBackHandler}>
           <IconSymbol color="white" size={25} name="backward" />
         </TouchableOpacity>
         <TouchableOpacity onPress={isPaused ? resume : pause}>
           <IconSymbol color="white" size={30} name={isPaused ? 'pause' : 'play'} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onForwardHandler}>
           <IconSymbol color="white" size={25} name="forward" />
         </TouchableOpacity>
       </View>

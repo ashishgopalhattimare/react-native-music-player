@@ -3,17 +3,24 @@ import React, { FC, PropsWithChildren, useCallback, useEffect, useRef, useState 
 
 import { Track } from '@/api/types';
 import { MediaPlayerContext } from './hooks/use-media-player';
-import type { AudioDataType, AudioStats, MediaPlayerContextProps, VolumeState } from './types';
+import type {
+  AudioDataType,
+  AudioStats,
+  MediaPlayerContextProps,
+  PositionState,
+  VolumeState,
+} from './types';
 
 type Props = {};
 
 const DEFAULT_AUDIO_STATS: AudioStats = { positionMillis: 0, durationMillis: 0 };
+const DEFAULT_VOLUME = 0.3;
 const DEFAULT_AUDIO_DATA: AudioDataType = {
   isPlaying: false,
-  volume: 1,
+  volume: DEFAULT_VOLUME,
   isLooping: false,
 };
-const DEFAULT_VOLUME = 0.5;
+const SKIP_SONG_SPAN = 15000;
 
 export const MediaPlayerProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
@@ -30,17 +37,20 @@ export const MediaPlayerProvider: FC<PropsWithChildren<Props>> = ({ children }) 
         durationMillis: -1,
       };
 
+      const config = {
+        isLooping: false,
+        positionMillis: millis,
+        volume: DEFAULT_VOLUME,
+      };
       const { sound } = await Audio.Sound.createAsync(
         { uri: track.url },
         {
           shouldPlay: shouldPlay,
-          isLooping: false,
-          positionMillis: millis,
-          volume: DEFAULT_VOLUME,
+          ...config,
         },
       );
       setSound(sound);
-      setAudioData((prev) => ({ ...prev, isPlaying: true }));
+      setAudioData({ ...config, isPlaying: true });
     };
 
     if (track) load(track, true, 0);
@@ -52,6 +62,12 @@ export const MediaPlayerProvider: FC<PropsWithChildren<Props>> = ({ children }) 
 
     sound.setOnPlaybackStatusUpdate((status) => {
       if (status.isLoaded) {
+        if (status.didJustFinish && !status.isLooping) {
+          setAudioData((prev) => ({
+            ...prev,
+            isPlaying: false,
+          }));
+        }
         audioStats.current = {
           positionMillis: status.positionMillis,
           durationMillis: status.durationMillis,
@@ -95,6 +111,28 @@ export const MediaPlayerProvider: FC<PropsWithChildren<Props>> = ({ children }) 
           volume: updatedVolume,
         }));
       });
+    },
+    [sound],
+  );
+
+  const updateSongPosition = useCallback(
+    async (state: PositionState, millis?: number) => {
+      if (!sound) return;
+
+      if (state === 'slide' && millis !== undefined) {
+        await sound.setPositionAsync(millis);
+      } else if (state === 'forward') {
+        await sound.setPositionAsync(
+          Math.min(
+            audioStats.current.positionMillis + SKIP_SONG_SPAN,
+            audioStats.current.durationMillis ?? 0,
+          ),
+        );
+      } else {
+        await sound.setPositionAsync(
+          Math.max(audioStats.current.positionMillis - SKIP_SONG_SPAN, 0),
+        );
+      }
     },
     [sound],
   );
@@ -145,6 +183,7 @@ export const MediaPlayerProvider: FC<PropsWithChildren<Props>> = ({ children }) 
     volume: audioData.volume,
     isLooping: audioData.isLooping,
     toggleLooping,
+    updateSongPosition,
   };
 
   return <MediaPlayerContext.Provider value={value}>{children}</MediaPlayerContext.Provider>;

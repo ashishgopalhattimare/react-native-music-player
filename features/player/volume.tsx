@@ -1,22 +1,24 @@
 import { StyleSheet, TouchableOpacity, View } from '@/components/react-native';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import { IconSymbol, type IconSymbolName } from '@/components/ui/IconSymbol';
 import { useTheme } from '@/hooks/useThemeColor';
 import { useMediaPlayer } from '@/library/music-player';
+
+const VolBtn = ({ onPress, name }: { onPress: () => void; name: IconSymbolName }) => (
+  <TouchableOpacity onPress={onPress}>
+    <IconSymbol color="white" size={15} name={name} />
+  </TouchableOpacity>
+);
 
 export const Volume = () => {
   const { volume, setVolume } = useMediaPlayer();
   const theme = useTheme();
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => setVolume('minus')}>
-        <IconSymbol color={'white'} size={25} name="speaker.minus" />
-      </TouchableOpacity>
+      <VolBtn onPress={() => setVolume('minus')} name="speaker.minus" />
       <View style={[styles.volumeContainer, { backgroundColor: theme.tabIconDefault }]}>
         <View style={[styles.bar, { backgroundColor: theme.tint, width: `${volume * 100}%` }]} />
       </View>
-      <TouchableOpacity onPress={() => setVolume('plus')}>
-        <IconSymbol color={'white'} size={25} name="speaker.plus" />
-      </TouchableOpacity>
+      <VolBtn onPress={() => setVolume('plus')} name="speaker.plus" />
     </View>
   );
 };

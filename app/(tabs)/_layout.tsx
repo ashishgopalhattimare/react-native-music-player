@@ -90,6 +90,7 @@ const Layout = () => {
             onPause={mediaPlayer.pause}
             onPlay={mediaPlayer.resume}
             isPaused={mediaPlayer.isPaused}
+            onForward={() => mediaPlayer.updateSongPosition('forward')}
           />
         </Floater>
       )}

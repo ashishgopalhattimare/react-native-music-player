@@ -1,11 +1,12 @@
 // Fallback for using MaterialIcons on Android and web.
 
-import FontAwesome from '@expo/vector-icons/FontAwesome6';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { SymbolViewProps, SymbolWeight } from 'expo-symbols';
 import { ComponentProps } from 'react';
 import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
 
-type IconMapping = Record<SymbolViewProps['name'], ComponentProps<typeof FontAwesome>['name']>;
+type IconMapping = Record<SymbolViewProps['name'], ComponentProps<typeof FontAwesome6>['name']>;
 export type IconSymbolName = keyof typeof MAPPING;
 
 /**
@@ -32,6 +33,11 @@ const MAPPING = {
   'speaker.plus': 'volume-high',
 } as IconMapping;
 
+const Mapper: Record<string, typeof FontAwesome | typeof FontAwesome6> = {
+  heart: FontAwesome,
+  default: FontAwesome6,
+};
+
 /**
  * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
  * This ensures a consistent look across platforms, and optimal resource usage.
@@ -49,5 +55,6 @@ export function IconSymbol({
   style?: StyleProp<TextStyle>;
   weight?: SymbolWeight;
 }) {
-  return <FontAwesome color={color} size={size} name={MAPPING[name]} style={style} />;
+  const Tag = Mapper[name] ?? Mapper.default;
+  return <Tag color={color} size={size} name={MAPPING[name]} style={style} />;
 }

@@ -4,14 +4,17 @@ import { Track } from '@/api/types';
 import { MediaPlayerContextProps } from '../types';
 
 export const MediaPlayerContext = createContext<MediaPlayerContextProps>({
+  track: null,
+  isPaused: false,
+  volume: 1,
+  isLooping: false,
   play: (_: Track) => Promise.resolve(),
   pause: () => undefined,
   resume: () => undefined,
-  track: null,
-  isPaused: false,
-  getAudioStats: () => null,
   setVolume: () => undefined,
-  volume: 1,
+  toggleLooping: () => undefined,
+  getAudioStats: () => null,
+  updateSongPosition: () => undefined,
 });
 
 export const useMediaPlayer = () => useContext(MediaPlayerContext);

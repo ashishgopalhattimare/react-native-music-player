@@ -19,7 +19,8 @@
       "@/api/*": ["./api/*"],
       "@/types": ["./api/types"],
       "@/features/*": ["./features/*"],
-      "@/library/*": ["./library/*"]
+      "@/library/*": ["./library/*"],
+      "@/redux/*": ["./redux/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],

@@ -5,6 +5,9 @@ import { useChangeDebounce } from '@/hooks/useChangeDebounce';
 import { useHeaderSearch } from '@/hooks/useHeaderSearchBar';
 import { useQuery } from '@/hooks/useQuery';
 
+import { useDispatch } from '@/redux/lib';
+import { update } from '@/redux/slice/media-player';
+
 import { GetSongListResponse, SongFragment } from '@/types';
 
 import { useMediaPlayer } from '@/library/music-player';
@@ -26,6 +29,7 @@ export const SongsList = () => {
     },
   });
   const mediaPlayer = useMediaPlayer();
+  const dispatch = useDispatch();
 
   useChangeDebounce({
     callback: () => refetch?.(),
@@ -33,7 +37,15 @@ export const SongsList = () => {
     trackChange: (prev, curr) => prev !== curr,
   });
 
-  const onPlayHandler = (data: SongFragment) => mediaPlayer.play(data);
+  const onPlayHandler = (song: SongFragment) => {
+    mediaPlayer.play(song);
+
+    dispatch(
+      update({
+        trackList: data?.data ?? [],
+      }),
+    );
+  };
 
   if (loading) {
     return <Text>Loading...</Text>;
