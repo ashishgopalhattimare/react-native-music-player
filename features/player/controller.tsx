@@ -22,11 +22,11 @@ export const Controller: FC<Props> = ({ style }) => {
   const onNextHandler = () => {
     const _track = onNext();
     if (_track) play(_track);
-  }
+  };
   const onPreviousHandler = () => {
     const _track = onPrevious();
     if (_track) play(_track);
-  }
+  };
 
   return (
     <View style={[styles.container, style]}>

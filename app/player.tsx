@@ -1,4 +1,11 @@
-import { Button, Image, StyleSheet, Text, View } from '@/components/react-native';
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from '@/components/react-native';
 import { FontSize } from '@/constants/tokens';
 import { unknownImage } from '@/features/songs/ui/common';
 import { useTheme } from '@/hooks/useThemeColor';
@@ -9,10 +16,10 @@ import { useEffect, useState } from 'react';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { PlayerController, ProgressBar } from '@/features/player';
 
-const BottomSheetBar = () => (
-  <View style={styles.barContainer}>
+const BottomSheetBar = ({ onClick }: { onClick?: () => void }) => (
+  <TouchableHighlight style={styles.barContainer} onPress={onClick}>
     <View style={[styles.bar, { backgroundColor: useTheme().tabIconDefault }]} />
-  </View>
+  </TouchableHighlight>
 );
 
 export default function Player() {
@@ -22,7 +29,7 @@ export default function Player() {
 
   const [metadata, setMetadata] = useState<{ position: number; duration?: number }>();
 
-  const onHomeNavigate = () => router.navigate('/');
+  const onHomeNavigate = () => router.replace('/');
 
   if (!track) {
     return (
@@ -47,12 +54,13 @@ export default function Player() {
     };
   }, [isPaused, getAudioStats]);
 
-  const onProgressChangeHandler = (positionMillis: number) => updateSongPosition('slide', positionMillis);
+  const onProgressChangeHandler = (positionMillis: number) =>
+    updateSongPosition('slide', positionMillis);
 
   const { artwork, title, artist, rating } = track;
   return (
     <View style={styles.container}>
-      <BottomSheetBar />
+      <BottomSheetBar onClick={onHomeNavigate} />
       <View style={{ flex: 1 }}>
         <Image style={styles.image} source={artwork ? { uri: artwork } : unknownImage} />
         <View style={styles.details}>

@@ -90,7 +90,7 @@ const Layout = () => {
   const onNextHandler = () => {
     const track = onNext();
     if (track) mediaPlayer.play(track);
-  }
+  };
   return (
     <>
       <App />

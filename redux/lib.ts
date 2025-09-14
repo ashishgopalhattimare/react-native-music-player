@@ -5,4 +5,3 @@ const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export { useDispatch } from 'react-redux';
 export { useTypedSelector };
-
