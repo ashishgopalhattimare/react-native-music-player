@@ -8,11 +8,13 @@ Develop a clone of music player with emplasis on React Native learning
 - The user can filter the songs based on the search criteria
 - When user clicks on the song, the song should start playing (and show the `song widget`)
 
+<div style="display:flex">
 <img src="https://github.com/ashishgopalhattimare/music-player/blob/main/assets/demo/songs_screen.png" alt="favourites screen" width="200" />
 
 <img src="https://github.com/ashishgopalhattimare/music-player/blob/main/assets/demo/filtered_songs_screen.png" alt="favourites screen" width="200" />
 
 <img src="https://github.com/ashishgopalhattimare/music-player/blob/main/assets/demo/play_songs.png" alt="favourites screen" width="200" />
+</div>
 
 ---
 
