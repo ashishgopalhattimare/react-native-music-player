@@ -8,9 +8,6 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { SongWidget } from '@/features/songs/ui/song-widget';
 import { useTheme } from '@/hooks/useThemeColor';
 import { useMediaPlayer } from '@/library/music-player/hooks';
-import { useTrackController } from '@/library/track/hooks';
-
-import { useTypedSelector } from '@/redux/lib';
 
 type TabData = {
   name: string;
@@ -58,6 +55,7 @@ const App = () => {
           ios: {
             // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
+            height: 50
           },
           default: {
             borderTopLeftRadius: 20,
@@ -83,14 +81,6 @@ const App = () => {
 
 const Layout = () => {
   const mediaPlayer = useMediaPlayer();
-  const trackList = useTypedSelector((state) => state.mediaPlayer.trackList);
-
-  const { onNext } = useTrackController(mediaPlayer.track, trackList);
-
-  const onNextHandler = () => {
-    const track = onNext();
-    if (track) mediaPlayer.play(track);
-  };
   return (
     <>
       <App />
@@ -101,7 +91,6 @@ const Layout = () => {
             onPause={mediaPlayer.pause}
             onPlay={mediaPlayer.resume}
             isPaused={mediaPlayer.isPaused}
-            onNext={onNextHandler}
           />
         </Floater>
       )}
